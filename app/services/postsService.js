@@ -1,34 +1,46 @@
 (function() {
-  'use strict';
+	'use strict';
 	angular.module('blogApp')
-		.service('postsService', function($http) {
-			this.countPosts = function(posts) {
-				return posts.length;
-			};
-      this.isBigger = function(postLen, startAtIndex) {
-        if(startAtIndex+3 > postLen){
-          return false;
-        } else {
-          return true;
-        }
-      };
+		.factory('postsService', postsService);
 
-      this.isSmaller = function(postLen, route) {
-        if (route <= 0){
-          return false;
-        } else {
-          return true;
-        }
-      };
+	function postsService($http) {
 
-      this.loadPosts = function() {
-        return $http.get('data/posts.json').then(function(data) {
-          return data.data.posts;
-        });
-      };
-      this.resetSearchParam = function() {
-        localStorage.setItem('searchParam', '');
-      };
+		function countPosts(posts) {
+			return posts.length;
+		}
 
-		}); //end of service
+		function isBigger(postLen, startAtIndex) {
+			if (startAtIndex + 3 > postLen) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		function isSmaller(postLen, route) {
+			if (route <= 0) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		function loadPosts() {
+			return $http.get('data/posts.json').then(function(data) {
+				return data.data.posts;
+			});
+		}
+
+		function resetSearchParam() {
+			localStorage.setItem('searchParam', '');
+		}
+		return {
+			countPosts: countPosts,
+			isBigger: isBigger,
+			isSmaller: isSmaller,
+			loadPosts: loadPosts,
+			resetSearchParam: resetSearchParam
+		};
+
+	}
 })();
