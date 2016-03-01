@@ -34,6 +34,7 @@
 		function resetSearchParam() {
 			localStorage.setItem('searchParam', '');
 		}
+    //TODO: Set a function that gets the sessionStorage value and manipulates the JSON obj to the desired results.
 		return {
 			countPosts: countPosts,
 			isBigger: isBigger,
