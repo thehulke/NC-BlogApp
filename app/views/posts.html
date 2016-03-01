@@ -1,0 +1,52 @@
+<h2>Showing
+				{{ctrl.postNum}}
+				Posts</h2>
+<hr>
+<!-- <h2 ng-hide="ctrl.isBigger">No more posts to show</h2> -->
+<article ng-repeat="post in ctrl.posts | limitTo:ctrl.postLimit:ctrl.startAtIndex | filter: ctrl.storageFilter as result">
+
+				<header>
+								<h2>
+												<a href="#" ng-href="/#/post/{{post.title}}">{{post.title}}</a>
+								</h2>
+								<p>
+												<span class="glyphicon glyphicon-user"></span>
+												by
+												<a href="#">{{post.author}}</a>
+								</p>
+								<p>
+												<span class="glyphicon glyphicon-time"></span>
+												Posted on
+												<date>{{post.date | date: format : timezone }}</date>
+								</p>
+				</header>
+
+				<p>{{post.description}}</p>
+				<br>
+
+				<footer class="clearfix">
+								<p class="pull-left">
+												<b>Tags:
+												</b>
+												<span ng-repeat="tag in post.tags">
+																<a href="#" class="label label-default">
+																				{{tag}}
+																</a>
+												</span>
+								</p>
+								<a href="" class="btn btn-primary pull-right">
+												Read More
+												<b class="glyphicon glyphicon-chevron-right"></b>
+								</a>
+				</footer>
+</article>
+<h2 ng-if="result == 0"> No posts to show</h2>
+<hr>
+<ul class="pager">
+				<li class="previous" ng-if="ctrl.routeParamStart > 0">
+								<a href="#" ng-href="/#/posts/{{ctrl.startAt-1}}">← Older</a>
+				</li>
+				<li class=" next" ng-if="result.length>0">
+								<a href="#" ng-href="/#/posts/{{ctrl.startAt+1}}">Newer →</a>
+				</li>
+</ul>
